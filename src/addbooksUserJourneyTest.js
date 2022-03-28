@@ -38,8 +38,9 @@ export default function () {
     let authorizationToken = resLogin.json("token");
     let userID = resLogin.json("userId");
 
-    //console.log(">>>>>> TOKEN <<<<<<<" + authorizationToken);
-    //console.log(">>>>>> USERID <<<<<<<" + userID);
+    console.log(">>>>>> userName <<<<<<<" + userName);
+    console.log(">>>>>> TOKEN <<<<<<<" + authorizationToken);
+    console.log(">>>>>> USERID <<<<<<<" + userID);
 
     check(resLogin, {
         'Login status 200': (r) => r.status === 200,
@@ -80,13 +81,11 @@ export default function () {
         });
     }
 
-
     /*
     TODO: Logout
     */
 
     sleep(1);
-
 
 
     function getRandomBooks() {
