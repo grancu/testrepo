@@ -1,0 +1,13 @@
+{
+  "name": "test",
+  "scripts": {
+    "test": "k6 run ./dist/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grancu/testrepo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/grancu/testrepo#readme"
+}
