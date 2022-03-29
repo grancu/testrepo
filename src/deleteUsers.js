@@ -3,7 +3,7 @@ import { sleep, check } from 'k6';
 
 export let options = {
     vu: '1',
-    iterations: 3
+    iterations: 1
 };
 
 export default function () {
@@ -45,7 +45,7 @@ export default function () {
     console.log(">>>>>> USERID  <<<<<<<   " + userID);
 
     check(resLogin, {
-        'Login status 200': (r) => r.status === 200,
+        'Correct Login ': (r) => r.json("userId") === userID,
     });
 
     /*
@@ -54,17 +54,14 @@ export default function () {
 
     let paramsWithToken = {
         headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
             Authorization: `Bearer ${authorizationToken}`,
         },
     };
 
-    console.log(">>>>>> deleteUserUrl <<<<<<<" + deleteUserUrl + userID);
+    console.log(">>>>>> deleteUserUrl <<<<<<<   " + deleteUserUrl + userID);
 
     let resDelUser = http.del(
-        deleteUserUrl + userID,
-        paramsWithToken
+        `https://demoqa.com/Account/v1/User/${userID}` ,null, paramsWithToken
     );
 
     check(resDelUser, {
