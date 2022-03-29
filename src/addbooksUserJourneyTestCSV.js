@@ -8,11 +8,15 @@ export let options = {
         {
             contacts: {
                 executor: 'shared-iterations',
-                vus: 1,
-                iterations: 20,
-                maxDuration: '30s',
+                vus: 1, //number of concurrent users sharing the iterations
+                iterations: 20, //number of iterations that all users will perform
+                maxDuration: '30s', //the max time allocated to execute the test
             },
-        }
+        },
+    thresholds: {
+        http_req_failed: ['rate<0.10'], // http errors should be less than 10%
+        http_req_duration: ['p(95)<500'], // 95% of requests should be below 500ms
+    },
 };
 
 const csvData = new SharedArray('users', function () {
