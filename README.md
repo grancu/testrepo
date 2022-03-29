@@ -121,7 +121,3 @@ The data file (users.csv) is located at /data folder
 - Readme explaining for CI/CD integration [here](/READMECICD.md)
 - Readme explaining how would the results be evaluated [here](/READMEEVAL.md)
 
-## Improvement
-
-1. Add run commands to npm for easy script execution
-
