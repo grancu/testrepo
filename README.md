@@ -52,21 +52,27 @@ for a single user test, run:
 k6 run -u 1 -i 1 addbooksUserJourneyTestCSV.js
 ```
 
-## Controlling the load generated
+## Default load generated
 
-The load of the addbooksUserJourneyTestCSV is controlled by the argument --u
-
-For example, a -u of 10 will create 10 concurrent users adding and deleting books at the same time. 
-
-a -u of 1, will login with a single user, add books and delete them for a duration specified in the -
+The default load generated 1 concurrent user performing 20 iterations, and is controlled by the options:
 
 ```
-vus: 1,
+scenarios:
+        {
+            contacts: {
+                executor: 'shared-iterations',
+                vus: 1,
+                iterations: 20,
+                maxDuration: '30s',
+            },
+        }
 ```
+
 ## What has been accoplished
 
 - [x] Create a load test script for creating 15 users
-- [x] create a load script for loggin in, add at least 5 books and logout.
+- [x] create a load script for loggin in, add at least 5 books and delete the books.
+- [ ] logout users
 - [x] Readme (this one :P )
 - [x] Readme explaining for CI/CD integration
 - [x] Readme explaining how would the results be evaluated
@@ -85,9 +91,12 @@ To create as many users as you want, you can run the scripts using the --iterati
 
 Example:
 ```
-k6 run createUsers.js --iterations=2
+k6 run addbooksUserJourneyTestCSV.js
 ```
 
 ## Folder Structure
-The source files are located into the /src folder 
+
+Test source files are located at /src folder
+
+The data file (users.csv) is located at /data folder
 
