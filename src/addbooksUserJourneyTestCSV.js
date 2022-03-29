@@ -16,7 +16,7 @@ export let options = {
 };
 
 const csvData = new SharedArray('users', function () {
-    return papaparse.parse(open('../../data/users.csv'), { header: true }).data;
+    return papaparse.parse(open('../data/users.csv'), { header: true }).data;
 });
 
 const loginUrl = 'https://demoqa.com/Account/v1/Login';
