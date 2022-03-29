@@ -5,12 +5,13 @@ import { Counter } from 'k6/metrics';
 export const requests = new Counter('http_reqs');
 
 export let options = {
-    vu: '1',
+    vu: 1,
     iterations: 1
 };
 
 export default function () {
 
+    //TODO: Add CSV Support
     let userName = `testUser_${__ITER}`;
     let url = 'https://demoqa.com/Account/v1/User';
     let body = {
