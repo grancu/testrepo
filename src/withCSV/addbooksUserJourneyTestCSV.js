@@ -1,14 +1,19 @@
 import http from 'k6/http';
 import { sleep, check } from 'k6';
+import { SharedArray } from 'k6/data';
+import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
 
 export let options = {
     vu: '1',
     iterations: 1
 };
 
+const csvData = new SharedArray('users', function () {
+    return papaparse.parse(open('../../data/users.csv'), { header: true }).data;
+});
+
 export default function () {
 
-    let userName = `testUser_${__ITER}`;
     let loginUrl = 'https://demoqa.com/Account/v1/Login';
     let addbooksUrl = 'https://demoqa.com/BookStore/v1/Books';
 
@@ -25,8 +30,8 @@ export default function () {
     */
 
     let loginBody = {
-        "userName": userName,
-        "password": "P@ssW0rd"
+        "userName": csvData[`${__ITER}`].userName,
+        "password": csvData[`${__ITER}`].passWord
     };
 
     let resLogin = http.post(
@@ -38,7 +43,7 @@ export default function () {
     let authorizationToken = resLogin.json("token");
     let userID = resLogin.json("userId");
 
-    console.log(">>>>>> userName <<<<<<<" + userName);
+    console.log(">>>>>> userName <<<<<<<" + csvData[`${__ITER}`].userName);
     console.log(">>>>>> TOKEN <<<<<<<" + authorizationToken);
     console.log(">>>>>> USERID <<<<<<<" + userID);
 
@@ -84,6 +89,9 @@ export default function () {
     /*
     TODO: Logout
     */
+
+    //let res = http.get('https://demoqa.com/profile');
+    //res = res.parseHTML(res).find('submit').click;
 
     sleep(1);
 
