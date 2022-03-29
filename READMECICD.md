@@ -51,7 +51,7 @@ graph LR
 	A(git push) --> B(starts of automated pipelines)
 	B --> C(other acceptance tests such as contract, visual tests)
 	C --> D[Acceptance Performance tests]
-	C --> E[Performance tests PASS]
+	D --> E[Performance tests PASS]
 	C --> G[performance tests FAIL - release stopped]
 	E --> F[Changes Pushed to Pre-Prod Environment]
 	F --> H[System Performance Tests]
