@@ -1,25 +1,25 @@
 import http from 'k6/http';
 import { sleep, check } from 'k6';
-import { Counter } from 'k6/metrics';
-
-export const requests = new Counter('http_reqs');
+import { SharedArray } from 'k6/data';
+import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
 
 export let options = {
     vu: 1,
-    iterations: 1
+    iterations: 15
 };
+
+const csvData = new SharedArray('users', function () {
+    return papaparse.parse(open('../data/users.csv'), { header: true }).data;
+});
+
 
 export default function () {
 
-    //TODO: Add CSV Support
-    let userName = `testUser_${__ITER}`;
     let url = 'https://demoqa.com/Account/v1/User';
     let body = {
-        "userName": userName,
-        "password": "P@ssW0rd"
+        "userName": csvData[`${__ITER}`].userName,
+        "password": csvData[`${__ITER}`].passWord
     };
-
-    console.log('>>>>>>>>>>>>>>   userName <<<<<<<  : ' + userName);
 
     let params = {
         headers: {
@@ -34,12 +34,11 @@ export default function () {
         params
     );
 
-    console.log('>>>>>>>>>>>>>>   status <<<<<<<  : ' + res.status);
 
     check(res, {
         'is status 201': (r) => r.status === 201,
     });
 
-    sleep(1);
+    //sleep(1);
 
 }
