@@ -74,8 +74,8 @@ scenarios:
 - [x] create a load script for loggin in, add at least 5 books and delete the books.
 - [ ] logout users
 - [x] Readme (this one :P )
-- [x] Readme explaining for CI/CD integration [here](myLib/READMECICD.md)
-- [x] Readme explaining how would the results be evaluated [here](myLib/READMEEVAL.md)
+- [x] Readme explaining for CI/CD integration [here](/READMECICD.md)
+- [x] Readme explaining how would the results be evaluated [here](/READMEEVAL.md)
 
 ## Test Execution / Running the tests
 
@@ -101,6 +101,6 @@ Test source files are located at /src folder
 The data file (users.csv) is located at /data folder
 
 ## Other documentation
-- Readme explaining for CI/CD integration [here](myLib/READMECICD.md)
-- Readme explaining how would the results be evaluated [here](myLib/READMEEVAL.md)
+- Readme explaining for CI/CD integration [here](/READMECICD.md)
+- Readme explaining how would the results be evaluated [here](/READMEEVAL.md)
 
