@@ -5,7 +5,7 @@ import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
 
 export let options = {
     vu: 1,
-    iterations: 1
+    iterations: 15
 };
 
 const csvData = new SharedArray('users', function () {
@@ -21,9 +21,6 @@ export default function () {
         "password": csvData[`${__ITER}`].passWord
     };
 
-    console.log('>>>>>>>>>>>>>>   userName <<<<<<<  : ' + csvData[`${__ITER}`].userName);
-    console.log('>>>>>>>>>>>>>>   passWord <<<<<<<  : ' + csvData[`${__ITER}`].passWord);
-
     let params = {
         headers: {
             accept: "application/json",
@@ -37,12 +34,11 @@ export default function () {
         params
     );
 
-    console.log('>>>>>>>>>>>>>>   status <<<<<<<  : ' + res.status);
 
     check(res, {
         'is status 201': (r) => r.status === 201,
     });
 
-    sleep(1);
+    //sleep(1);
 
 }

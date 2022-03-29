@@ -8,29 +8,11 @@ export let options = {
         {
             contacts: {
                 executor: 'shared-iterations',
-                vus: 10,
-                iterations: 200,
+                vus: 1,
+                iterations: 20,
                 maxDuration: '30s',
             },
         }
-
-
-    stages:[
-        {
-            duration: '1s',
-            target: 10,
-            vus:10,
-            iterations: 10
-        },
-        {
-            duration: '20s',
-            target: 10
-        },
-        {
-            duration: '0s',
-            target: 0
-        },
-    ]
 };
 
 const csvData = new SharedArray('users', function () {
@@ -54,8 +36,8 @@ export default function () {
     */
 
     let loginBody = {
-        "userName": csvData[`${__ITER}`].userName,
-        "password": csvData[`${__ITER}`].passWord
+        "userName": csvData[`${__VU}`].userName,
+        "password": csvData[`${__VU}`].passWord
     };
 
     let resLogin = http.post(
@@ -67,7 +49,8 @@ export default function () {
     let authorizationToken = resLogin.json("token");
     let userID = resLogin.json("userId");
 
-    console.log(">>>>>> userName <<<<<<<" + csvData[`${__ITER}`].userName);
+    console.log(">>>>>> userName <<<<<<<" + csvData[`${__VU}`].userName);
+
 
     check(resLogin, {
         'Login status 200': (r) => r.status === 200,
@@ -83,7 +66,7 @@ export default function () {
             accept: "application/json",
             "Content-Type": "application/json",
             Authorization: `Bearer ${authorizationToken}`,
-        },
+        }
     };
 
     for (let i = 0; i < 5; i++) {
@@ -107,6 +90,8 @@ export default function () {
             'Add Book status 201': (r) => r.status === 201,
         });
     }
+
+    sleep(1);
 
     /*
     Delete all books

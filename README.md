@@ -22,18 +22,47 @@ WHY NOT NPM RUN .. ????
 ```
 
 
-By default, the script _createUsersCSV.js_ will create 5 users.
-The script addbooksUserJourneyTestCSV.ks will add 5 books to each user.
+By default, the script _createUsersCSV.js_ will create 15 users.
+The script addbooksUserJourneyTestCSV.js will add 5 books to each user.
 
+## command line arguments
 
+Command Line arguments can be passed to the script addbooksUserJourneyTestCSV.js to control the load one would like to generate.
 
-the script can be modified to accept the number of users through the command line argument when run.  Otherwise, it will ready through a csv file.
+By default, addbooksUserJourneyTestCSV.js will create 5 concurrent users, performing add and delete of books.  the script will keep running for a max time of 30 seconds, or until 20 iterations of the same test have executed.
 
-The example uses 2 scripts.  One script is used to generate the users through the api. 
-The second script is used to add books to each user created.
+This can be controlled by the following:
+```
+-u (to control the numbers of concurrent users)
+-i (to set a max set of iterations performed by each user)
+-duration (the time allocated to run the test)
+```
+```
+Example: 10 simultanious users , adding 100 books (5 each twice), and deleting all books twice
+k6 run -u 10 -i 20 -d 10s addbooksUserJourneyTestCSV.js
+```
+```
+-u 10 - 10 simultanious users
+-i 20 - total of 20 iterations, 2 per user
+-d 10s - in a max time of 10 seconds
+```
 
-Not to generate a lot of load, the scripts only use 1 VU.  To increase the load, simple increase the virtual users running concurrently.
+for a single user test, run:
+```
+k6 run -u 1 -i 1 addbooksUserJourneyTestCSV.js
+```
 
+## Controlling the load generated
+
+The load of the addbooksUserJourneyTestCSV is controlled by the argument --u
+
+For example, a -u of 10 will create 10 concurrent users adding and deleting books at the same time. 
+
+a -u of 1, will login with a single user, add books and delete them for a duration specified in the -
+
+```
+vus: 1,
+```
 ## What has been accoplished
 
 - [x] Create a load test script for creating 15 users
