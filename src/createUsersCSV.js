@@ -8,7 +8,7 @@ export const requests = new Counter('http_reqs');
 
 export let options = {
     vu: '1',
-    iterations: 3
+    iterations: 1
 };
 
 const csvData = new SharedArray('users', function () {

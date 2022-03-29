@@ -85,6 +85,9 @@ export default function () {
     TODO: Logout
     */
 
+    let res = http.get('https://demoqa.com/profile');
+    res = res.parseHTML(res).find('submit').click;
+
     sleep(1);
 
 
