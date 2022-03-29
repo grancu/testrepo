@@ -1,10 +1,7 @@
 import http from 'k6/http';
 import { sleep, check } from 'k6';
-import { Counter } from 'k6/metrics';
 import { SharedArray } from 'k6/data';
 import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
-
-export const requests = new Counter('http_reqs');
 
 export let options = {
     vu: '1',
