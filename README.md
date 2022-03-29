@@ -1,14 +1,16 @@
 # testrepo
 
-A simple performance test example how K6 can be used to test an api
+A simple performance test example how K6 can be used to test the apis of an application under test
 
 ## What it does
 The example simply create a number of users through an api, and adds a number of books.
+The script also deletes the books added, so that it can re-add books later on since the book data is very limited.
 
-It's intention is an excerice, however, the scripts are written in K6, a Performance Engineering tool.  
-This approach makes these scripts siutable for Performance Test.   Thus it can be said that this project can also be used as a simple example to illustrate how to performance test a simple book shop. 
+Its intention is an exercise, however, the scripts are written in K6, a Performance Engineering tool.  
+This approach makes these scripts suitable for Performance Test. 
+Therefor it can be said that this project can also be used as a simple example to illustrate how to performance test a simple book-shop. 
 
-The scripts do not test the UI, there are other tools better siutes for this.  The scripts target the APIs.
+The scripts do not test the UI, there are other tools better suited for this.  The scripts target the APIs.
 
 ## Quick setup
 ```
@@ -32,10 +34,11 @@ By default, the script _createUsersCSV.js_ will create 15 users.
 
 ## Preset Scripts 
 ```
-    "test": "k6 run ./src/addbooksUserJourneyTestCSV.js"
-    "setup": "k6 run ./src/createUsersCSV.js"
-    "load10users": "k6 run -u 10 -i 20 ./src/addbooksUserJourneyTestCSV.js"
-    "load1user": "k6 run -u 1 -i 1 addbooksUserJourneyTestCSV.js"
+- "test": "k6 run ./src/addbooksUserJourneyTestCSV.js"
+- "setup": "k6 run ./src/createUsersCSV.js"
+- "load10users": "k6 run -u 10 -i 20 ./src/addbooksUserJourneyTestCSV.js"
+- "load1user": "k6 run -u 1 -i 1 addbooksUserJourneyTestCSV.js"
+- "loadalot": "k6 run -u 15 -i 1000 ./src/addbooksUserJourneyTestCSV.js"          (NOTE: RUN WITH CARE)     
 ```
 
 
