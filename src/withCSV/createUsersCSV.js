@@ -4,12 +4,12 @@ import { SharedArray } from 'k6/data';
 import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
 
 export let options = {
-    vu: '1',
+    vu: 1,
     iterations: 1
 };
 
 const csvData = new SharedArray('users', function () {
-    return papaparse.parse(open('../data/users.csv'), { header: true }).data;
+    return papaparse.parse(open('../../data/users.csv'), { header: true }).data;
 });
 
 
