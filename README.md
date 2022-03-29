@@ -1,11 +1,18 @@
 # testrepo
 
-## Folder Structure
-The source files are located into the /src folder 
+A simple performance test example how K6 can be used to test an api
 
+## What it does
+The example simply create a number of users through an api, and adds a number of books.
 
+TODO The script can be modified to accept the number of users through the command line argument when run.  Otherwise, it will ready through a csv file.
 
-### Test Execution / Running the tests
+The example uses 2 scripts.  One script is used to generate the users through the api. 
+The second script is used to add books to each user created.
+
+Not to generate a lot of load, the scripts only use 1 VU.  To increase the load, simple increase the virtual users running concurrently.
+
+## Test Execution / Running the tests
 
 The tests are running using the command 
 ```
@@ -21,33 +28,6 @@ Example:
 k6 run createUsers.js --iterations=2
 ```
 
-## cicd Integration
-
-In this examole, Gitlab is used as a reference how this project can be used to run automated performance tests into a ci/cd pipeline. 
-
-In theory, the script can also be used as an Acceptance Tests, run after each merge request to test the apis.
-
-Hereafter, the Performance Stage run as part of the Acceptance Tests will be called Component Performance Test, and the Performance Tests run on the whole system will be called System Performance Test.
-
-The aim/goal of the Performance Tests run during the Acceptance Tests Stage is ensure that the new changes in the code do not introduce performance degradation at a component level.
-
-Whereas the aim/goal of th Performance Tests at a System Testing stage will ensure the applicaton as a whole can whitstand normal day to day activity and scalability for  buisness requirments. 
-The Performance Tests during the Acceptance Tests stage does not 
-
-
-```mermaid
-
-graph LR
-	A(git push) --> B(starts of automated pipelines)
-	B --> C(other acceptance tests such as contract, visual tests)
-	C --> D[Component performance tests]
-	C --> E[performance tests PASS]
-	C --> G[performance tests FAIL - release stopped]
-	E --> F[Changes Pushed to Pre-Prod Environment]
-	F --> H[System Performance Tests]
-	H --> I[performance tests PASS]
-	I --> J[release to prod]
-	H --> K[performance tests FAIL - release stopped]
-```
-
+## Folder Structure
+The source files are located into the /src folder 
 
