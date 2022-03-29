@@ -1,7 +1,10 @@
 {
   "name": "test",
   "scripts": {
-    "test": "k6 run ./dist/app.js"
+    "test": "k6 run ./src/addbooksUserJourneyTestCSV.js",
+    "setup": "k6 run ./src/createUsersCSV.js",
+    "load10users": "k6 run -u 10 -i 20 ./src/addbooksUserJourneyTestCSV.js",
+    "load1user": "k6 run -u 1 -i 1 addbooksUserJourneyTestCSV.js"
   },
   "repository": {
     "type": "git",

@@ -12,18 +12,32 @@ The scripts do not test the UI, there are other tools better siutes for this.  T
 
 ## Quick setup
 ```
-WHY NOT NPM RUN .. ????
-
 - pull the repo
 - npm install
-- cd /src/withCSV
+- npm run setup //will create 15 users
+- npm test //will load test
+```
+
+By default, the script _createUsersCSV.js_ will create 15 users.
+
+
+### Running the scripts directly
+```
+- pull the repo
+- npm install
+- cd /src
 - k6 run createUsersCSV.js
 - k6 run addbooksUserJourneyTestCSV.js
 ```
 
+## Preset Scripts 
+```
+    "test": "k6 run ./src/addbooksUserJourneyTestCSV.js"
+    "setup": "k6 run ./src/createUsersCSV.js"
+    "load10users": "k6 run -u 10 -i 20 ./src/addbooksUserJourneyTestCSV.js"
+    "load1user": "k6 run -u 1 -i 1 addbooksUserJourneyTestCSV.js"
+```
 
-By default, the script _createUsersCSV.js_ will create 15 users.
-The script addbooksUserJourneyTestCSV.js will add 5 books to each user.
 
 ## command line arguments
 
@@ -103,4 +117,8 @@ The data file (users.csv) is located at /data folder
 ## Other documentation
 - Readme explaining for CI/CD integration [here](/READMECICD.md)
 - Readme explaining how would the results be evaluated [here](/READMEEVAL.md)
+
+## Improvement
+
+1. Add run commands to npm for easy script execution
 
