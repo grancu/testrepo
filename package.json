@@ -3,6 +3,7 @@
   "scripts": {
     "test": "k6 run ./src/addbooksUserJourneyTestCSV.js",
     "setup": "k6 run ./src/createUsersCSV.js",
+    "setup5": "k6 run -i 5 ./src/createUsersCSV.js",
     "load10users": "k6 run -u 10 -i 20 ./src/addbooksUserJourneyTestCSV.js",
     "load1user": "k6 run -u 1 -i 1 ./src/addbooksUserJourneyTestCSV.js",
     "loadalot": "k6 run -u 15 -i 1000 ./src/addbooksUserJourneyTestCSV.js"

@@ -22,6 +22,10 @@ The scripts do not test the UI, there are other tools better suited for this.  T
 
 By default, the script _createUsersCSV.js_ will create 15 users.
 
+### If K6 is not found, kindly install it globally by running
+```
+npm install -g k6
+```
 
 ### Running the scripts directly
 ```

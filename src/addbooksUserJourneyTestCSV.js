@@ -10,7 +10,7 @@ export let options = {
                 executor: 'shared-iterations',
                 vus: 1, //number of concurrent users sharing the iterations
                 iterations: 20, //number of iterations that all users will perform
-                maxDuration: '30s', //the max time allocated to execute the test
+                maxDuration: '30s' //the max time allocated to execute the test
             },
         },
     thresholds: {
@@ -24,6 +24,7 @@ const csvData = new SharedArray('users', function () {
 });
 
 const loginUrl = 'https://demoqa.com/Account/v1/Login';
+const generateTokenUrl = 'https://demoqa.com/Account/v1/GenerateToken';
 const booksUrl = 'https://demoqa.com/BookStore/v1/Books';
 
 export default function () {
@@ -53,12 +54,22 @@ export default function () {
     let authorizationToken = resLogin.json("token");
     let userID = resLogin.json("userId");
 
-    console.log(">>>>>> userName <<<<<<<" + csvData[`${__VU}`].userName);
+    if (authorizationToken == null) {
+        console.log(">>>>>> Error Message Token >>>>>> " + resLogin.json("result"));
+    }
+
+    console.log(">>>>>> userName >>>>>> " + csvData[`${__VU}`].userName + " and password " + csvData[`${__VU}`].passWord);
 
 
     check(resLogin, {
         'Login status 200': (r) => r.status === 200,
     });
+
+    if (resLogin.status == 200){
+        console.log(">>>>>> Token >>>>>> " + `${authorizationToken}`);
+    }
+
+    sleep(1);
 
     /*
     ADD 5 BOOKS
@@ -84,6 +95,8 @@ export default function () {
             ]
         };
 
+        console.log(">>>>>> adding book  >>>>>> " + `${getNextBook(i)}` + " to UserID >>>> " + `${userID}`);
+
         let resAddBooks = http.post(
             booksUrl,
             JSON.stringify(addBooksBody),
@@ -93,6 +106,13 @@ export default function () {
         check(resAddBooks, {
             'Add Book status 201': (r) => r.status === 201,
         });
+
+        if (resAddBooks.status != 201) {
+            console.log(">>>>>> Error Message  >>>>>> " + resAddBooks.json("message"));
+        }
+
+        sleep(1);
+
     }
 
     sleep(1);
@@ -108,7 +128,6 @@ export default function () {
     check(resDelUser, {
         'Del Books status 204': (r) => r.status === 204,
     });
-
 
     /*
     TODO: Logout
@@ -128,9 +147,5 @@ export default function () {
     function getNextBook(index) {
         const bookIds = ['9781449325862','9781449331818','9781449337711','9781449365035','9781491904244','9781491950296','9781593275846','9781593277574'];
         return bookIds[index];
-    }
-
-    function login() {
-
     }
 }

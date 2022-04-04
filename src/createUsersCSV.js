@@ -39,6 +39,6 @@ export default function () {
         'is status 201': (r) => r.status === 201,
     });
 
-    //sleep(1);
+    sleep(1);
 
 }
