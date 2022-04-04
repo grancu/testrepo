@@ -45,6 +45,8 @@ export default function () {
         "password": csvData[`${__VU}`].passWord
     };
 
+    //sleep(Math.random() * 5);
+
     let resLogin = http.post(
         loginUrl,
         JSON.stringify(loginBody),
@@ -55,10 +57,10 @@ export default function () {
     let userID = resLogin.json("userId");
 
     if (authorizationToken == null) {
-        console.log(">>>>>> Error Message Token >>>>>> " + resLogin.json("result"));
+        console.log(">>>>>> Error Message Token for user " + csvData[`${__VU}`].userName + " >>>>>> " + resLogin.json("result"));
     }
 
-    console.log(">>>>>> userName >>>>>> " + csvData[`${__VU}`].userName + " and password " + csvData[`${__VU}`].passWord);
+    //console.log(">>>>>> userName >>>>>> " + csvData[`${__VU}`].userName + " and password " + csvData[`${__VU}`].passWord);
 
 
     check(resLogin, {
@@ -66,7 +68,7 @@ export default function () {
     });
 
     if (resLogin.status == 200){
-        console.log(">>>>>> Token >>>>>> " + `${authorizationToken}`);
+        console.log(">>>>>> Token for user " + csvData[`${__VU}`].userName + " >>>>>> " + `${authorizationToken}`);
     }
 
     sleep(1);
@@ -95,7 +97,7 @@ export default function () {
             ]
         };
 
-        console.log(">>>>>> adding book  >>>>>> " + `${getNextBook(i)}` + " to UserID >>>> " + `${userID}`);
+        console.log(">>>>>> adding book  >>>>>> " + `${getNextBook(i)}` + " to User >>>> " + csvData[`${__VU}`].userName);
 
         let resAddBooks = http.post(
             booksUrl,
@@ -108,7 +110,7 @@ export default function () {
         });
 
         if (resAddBooks.status != 201) {
-            console.log(">>>>>> Error Message  >>>>>> " + resAddBooks.json("message"));
+            console.log(">>>>>> Error Message for user " + csvData[`${__VU}`].userName +  " >>>>>> " + resAddBooks.json("message"));
         }
 
         sleep(1);
