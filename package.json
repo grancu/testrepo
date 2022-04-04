@@ -6,6 +6,10 @@
     "setup5": "k6 run -i 5 ./src/createUsersCSV.js",
     "load10users": "k6 run -u 10 -i 20 ./src/addbooksUserJourneyTestCSV.js",
     "load1user": "k6 run -u 1 -i 1 ./src/addbooksUserJourneyTestCSV.js",
+    "load2users": "k6 run -u 2 -i 2 ./src/addbooksUserJourneyTestCSV.js",
+    "load3users": "k6 run -u 3 -i 3 ./src/addbooksUserJourneyTestCSV.js",
+    "load4users": "k6 run -u 4 -i 4 ./src/addbooksUserJourneyTestCSV.js",
+    "load5users": "k6 run -u 5 -i 5 ./src/addbooksUserJourneyTestCSV.js",
     "loadalot": "k6 run -u 15 -i 1000 ./src/addbooksUserJourneyTestCSV.js"
   },
   "repository": {
