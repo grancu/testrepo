@@ -71,6 +71,8 @@ export default function () {
         console.log(">>>>>> Token for user " + csvData[`${__VU}`].userName + " >>>>>> " + `${authorizationToken}`);
     }
 
+    console.log(">>>>>> Login Res Body >>>>>> " + resLogin.body);
+
     sleep(1);
 
     /*
